@@ -15,6 +15,7 @@ def Lanjut_Pembayaran():
     except ValueError:
         print("Keranjang belanja kosong.")
         # kembaliKeMenu(menuCustomer)
+        pass
     
     opsi_lanjut = questionary.confirm("Apakah Anda ingin melakukan pembayaran?").ask()
     if opsi_lanjut == True:

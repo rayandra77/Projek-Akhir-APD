@@ -1,12 +1,4 @@
-import questionary
-from prettytable import PrettyTable
-import sys
-import os
-
-# Tambahkan path parent directory agar bisa import dari Program/
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-
-from main import daftar_barang, keranjang_belanja
+import questionary #import questionary module for interactive command line prompts
 
 def Questionary():
     questionary.text("What's your first name").ask()
@@ -28,8 +20,7 @@ def Questionary():
     ).ask()
 
     questionary.path("Path to the projects version file").ask()
-Questionary()
-def menu_keranjang():
+def menu_Keranjang():
     pilihan = questionary.select(
         "Menu Keranjang Belanja:",
         choices=[
@@ -43,7 +34,8 @@ def menu_keranjang():
 
     match pilihan:
         case "Lihat Daftar Keranjang Belanja":
-            daftar_keranjang_belanja()
+            from daftar_keranjang_belanja import daftar_Keranjang_Belanja
+            daftar_Keranjang_Belanja()
         case "Lanjut ke Pembayaran":
             from lanjut_pembayaran import Lanjut_Pembayaran
             Lanjut_Pembayaran()
@@ -53,30 +45,8 @@ def menu_keranjang():
         case "Hapus Barang dari Keranjang":
             # fungsi untuk menghapus barang dari keranjang
             pass
-        case "Kembali ke Menu Utama":
-            # fungsi untuk kembali ke menu utama
+        case "Kembali ke Menu Utama User":
+            # fungsi untuk kembali ke menu utama user
             pass
 
-def daftar_keranjang_belanja():
-    #deklarasi tabel_keranjang sebagai objek PrettyTable
-    tabel_keranjang = PrettyTable()
-    tabel_keranjang.field_names = ["No", "Nama Produk", "Jumlah", "Subtotal"]
-    print("")
-    tabel_keranjang.align["Nama Produk"] = "l"
-    tabel_keranjang.align["Subtotal"] = "l"
-    if not keranjang_belanja:
-        print("Keranjang belanja kosong.")
-        # kembaliKeMenu(menuCustomer)
-        # #setelah ini seharusnya akan kembali ke menu user
-    else:
-        total = 0
-        for i, (product_id, jumlah) in enumerate(keranjang_belanja.items(), 1):
-            nama = daftar_barang[product_id]['nama']
-            harga = daftar_barang[product_id]['harga']
-            subtotal = harga * jumlah
-            total += subtotal
-            tabel_keranjang.add_row([i, nama, jumlah, f"Rp.{subtotal:,}"])
-        tabel_keranjang.add_row(["", "", "Total:", f"Rp.{total:,}"])
-        print(tabel_keranjang)
-        menu_keranjang()
-        #kembali  ke menu keranjang belanja
+menu_Keranjang()
